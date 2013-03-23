@@ -32,7 +32,7 @@ class FacebookGraph{
 	private $_token; //access token
 	public $http_status; // http status 
 	
-	public function __construct($url, $token){
+	public function __construct($url, $token = NULL){
 		$this -> _url = $url; //url
 		$this -> _token = $token; //access token
 	}
