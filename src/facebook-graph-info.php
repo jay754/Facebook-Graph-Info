@@ -25,7 +25,9 @@ Email: jayengineer6@gmail.com
 
 **/
 
-class FacebookGraph{
+class FacebookGraph
+
+{
 	// All the info you can get from facebook without oAuth
 	
 	private $_url; //facebook api url
@@ -38,7 +40,7 @@ class FacebookGraph{
 	}
 
 	/**
-		getHTTPstatus Method
+		HTTPstatus Method
 		
 		@paras - none
 		- No Access Token Required 
@@ -46,11 +48,10 @@ class FacebookGraph{
 		//Make sure to set the CURLOPT_SSL_VERIFYPEER and CURLOPT_SSL_VERIFYHOST to false has it messes with the SSL
 	**/
 	
-	protected function getHTTPstatus($url){
+	protected function HTTPstatus($url){
 		$http = curl_init($url);
 		curl_setopt($http, CURLOPT_SSL_VERIFYPEER, FALSE); 
 		curl_setopt($http, CURLOPT_SSL_VERIFYHOST, FALSE);
-		// do your curl thing here
 		$result = curl_exec($http);
 		$http_status = $this-> http_status;
 		$http_status = curl_getinfo($http, CURLINFO_HTTP_CODE);
@@ -74,13 +75,13 @@ class FacebookGraph{
 	}
 	
 	/** 
-		getInfo Method
+		fbInfo Method
 		
 		- No Access Token Required 
 		@paras - $id must be a string error otherwise Raise Error
 	**/
 	
-	public function getINFO($id){
+	public function fbInfo($id){
 		$url = $this-> _url;
 		$info = file_get_contents($url.'/'.$id);
 		$data = json_decode($info, true);
@@ -89,14 +90,14 @@ class FacebookGraph{
 	}
 	
 	/** 
-		getId Method
+		fbID Method
 		
 		- No Access Token Required 
 		@paras - $fb_username must be a string error otherwise Raise Error
 	**/
 
-	public function getID($fb_username){
-		$info = $this -> getInfo($fb_username);
+	public function fbID($fb_username){
+		$info = $this -> fbInfo($fb_username);
 		$id = $info['id'];
 
 		return $id;
@@ -110,7 +111,7 @@ class FacebookGraph{
 	**/
 	
 	public function getName($fb_username){
-		$info = $this -> getInfo($fb_username);
+		$info = $this -> fbInfo($fb_username);
 		$data = array("first_name" => $info['first_name'],
 					  "last_name" => $info['last_name'],
 					  );
@@ -119,14 +120,14 @@ class FacebookGraph{
 	}
 	
 	/** 
-		getUsername Method
+		fbUsername Method
 		
 		- No Access Token Required 
 		@paras - $fb_username must be a string error otherwise Raise Error
 	**/
 	
-	public function getUsername($username){
-		$info = $this -> getInfo($username);
+	public function fbUsername($username){
+		$info = $this -> fbInfo($username);
 		$username = $info["username"];
 		
 		return $username;
@@ -140,7 +141,7 @@ class FacebookGraph{
 	**/
 	
 	public function getLink($username){
-		$info = $this-> getInfo($username);
+		$info = $this-> fbInfo($username);
 		$link = $info["link"];
 		
 		return $link;
@@ -154,7 +155,7 @@ class FacebookGraph{
 	**/
 	
 	public function getGender($username){
-		$info = $this-> getInfo($username);
+		$info = $this-> fbInfo($username);
 		$gender = $info["gender"];
 
 		return $gender;
@@ -243,7 +244,7 @@ class FacebookGraph{
 	
 		$url = $this-> _url;
 		$token = $this-> _token;
-		$http_status = $this-> getHTTPstatus($url."/".$id."/likes?access_token=".$token); //http status 
+		$http_status = $this-> HTTPstatus($url."/".$id."/likes?access_token=".$token); //http status 
 		
 		if ($http_status == 400){
 			return "bad request";
@@ -272,7 +273,7 @@ class FacebookGraph{
 	public function getFriends($id){
 		$url = $this-> _url;
 		$token = $this-> _token;
-		$http_status = $this-> getHTTPstatus($url."/".$id."/friends?access_token=".$token); //http status 
+		$http_status = $this-> HTTPstatus($url."/".$id."/friends?access_token=".$token); //http status 
 		
 		if ($http_status == 400){
 			return "bad request";
@@ -302,7 +303,7 @@ class FacebookGraph{
 		
 		$url = $this-> _url;
 		$token = $this-> _token;
-		$http_status = $this-> getHTTPstatus($url."/".$id."/groups?access_token=".$token); //http status 
+		$http_status = $this-> HTTPstatus($url."/".$id."/groups?access_token=".$token); //http status 
 		
 		if ($http_status == 400){
 			return "bad request";
@@ -323,7 +324,7 @@ class FacebookGraph{
 	public function getMusic($id){
 		$url = $this->_url;
 		$token = $this->_token;
-		$http_status = $this-> getHTTPstatus($url."/".$id."/music?access_token=".$token); //http status 
+		$http_status = $this-> HTTPstatus($url."/".$id."/music?access_token=".$token); //http status 
 		
 		if ($http_status == 400){
 			print "bad request";
