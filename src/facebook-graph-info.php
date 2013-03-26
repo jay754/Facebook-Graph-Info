@@ -1,29 +1,14 @@
 <?php
 
-/** 
+/*
 
-Copyright (c) 2012, Jay Engineer
-All rights reserved.
+	Author: Jay Engineer
+	Home Page: https://github.com/jay754/Facebook-Graph-Info
+	Script: facebook-graph-info.php
+	PHP Facebook-Graph API
 
-Redistribution and use in source and binary forms, with or without modification, 
-are permitted provided that the following conditions are met:
-
-Redistributions of source code must retain the above copyright notice, this list of conditions 
-and the following disclaimer. Redistributions in binary form must reproduce the above copyright
-notice, this list of conditions and the following disclaimer in the documentation and/or other
-materials provided with the distribution. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
-CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
-EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
-NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
-
-Email: jayengineer6@gmail.com
-
-**/
+	license: The BSD 3-Clause License
+*/
 
 class FacebookGraph
 
@@ -38,7 +23,7 @@ class FacebookGraph
 		$this -> _url = $url; //url
 		$this -> _token = $token; //access token
 	}
-
+	
 	/**
 		HTTPstatus Method
 		
@@ -47,17 +32,10 @@ class FacebookGraph
 		Returns the http status of the website
 		//Make sure to set the CURLOPT_SSL_VERIFYPEER and CURLOPT_SSL_VERIFYHOST to false has it messes with the SSL
 	**/
-	
-	protected function HTTPstatus($url){
-		$http = curl_init($url);
-		curl_setopt($http, CURLOPT_SSL_VERIFYPEER, FALSE); 
-		curl_setopt($http, CURLOPT_SSL_VERIFYHOST, FALSE);
-		$result = curl_exec($http);
-		$http_status = $this-> http_status;
-		$http_status = curl_getinfo($http, CURLINFO_HTTP_CODE);
-		curl_close($http);
-	
-		return $http_status;
+
+	public static function HTTPstatus($url) {
+		$headers = get_headers($url);
+		return substr($headers[0], 9, 3); //returns http status
 	}
 	
 	/**
@@ -246,19 +224,23 @@ class FacebookGraph
 		$token = $this-> _token;
 		$http_status = $this-> HTTPstatus($url."/".$id."/likes?access_token=".$token); //http status 
 		
-		if ($http_status == 400){
-			return "bad request";
-		}
-		else {
+		if ($http_status == 200){
 			$info = file_get_contents($url."/".$id."/likes?access_token=".$token);
 			$json = json_decode($info, true);
 			$data = array();
 			
-			foreach($json_decode as $k){
-				$data[] = $k;
+			for($i=0;$i<sizeof($json['data']);$i++){
+				$data[$i]['category'] = $json['data'][$i]['category'];
+				$data[$i]['name'] = $json['data'][$i]['name'];
+				$data[$i]['id'] = $json['data'][$i]['id'];
+				$data[$i]['created_time'] = $json['data'][$i]['created_time'];
 			}
 			
 			return $data;
+		}
+		
+		else {
+			return "bad request";
 		}
 	}
 	
@@ -275,19 +257,21 @@ class FacebookGraph
 		$token = $this-> _token;
 		$http_status = $this-> HTTPstatus($url."/".$id."/friends?access_token=".$token); //http status 
 		
-		if ($http_status == 400){
-			return "bad request";
-		}
-		else {
+		if ($http_status == 200){
 			$info = file_get_contents($url."/".$id."/friends?access_token=".$token);
 			$json = json_decode($info, true);
 			$data = array();
 			
-			foreach($json_decode as $k){
-				$data[] = $k;
+			for($i=0;$i<sizeof($json['data']);$i++){
+				$data[$i]['name'] = $json['data'][$i]['name'];
+				$data[$i]['id'] = $json['data'][$i]['id'];
 			}
 			
 			return $data;
+		}
+		
+		else {
+			return "bad request";
 		}
 	}
 	
@@ -305,19 +289,23 @@ class FacebookGraph
 		$token = $this-> _token;
 		$http_status = $this-> HTTPstatus($url."/".$id."/groups?access_token=".$token); //http status 
 		
-		if ($http_status == 400){
-			return "bad request";
-		}
-		else {
+		if ($http_status == 200){
 			$info = file_get_contents($url."/".$id."/groups?access_token=".$token);
 			$json = json_decode($info, true);
 			$data = array();
 			
-			foreach($json_decode as $k){
-				$data[] = $k;
+			for($i=0;$i<sizeof($json['data']);$i++){
+				$data[$i]['name'] = $json['data'][$i]['name'];
+				$data[$i]['id'] = $json['data'][$i]['id'];
+				$data[$i]['version'] = $json['data'][$i]['version'];
+				$data[$i]['unread_messages'] = $json['data'][$i]['unread'];
+				$data[$i]['admin'] = $json['data'][$i]['administrator'];
 			}
 			
 			return $data;
+		}
+		else {
+			return "bad request";
 		}
 	}
 	
@@ -326,23 +314,25 @@ class FacebookGraph
 		$token = $this->_token;
 		$http_status = $this-> HTTPstatus($url."/".$id."/music?access_token=".$token); //http status 
 		
-		if ($http_status == 400){
-			print "bad request";
-		}
-		
-		else {
+		if ($http_status == 200){
 			$info = file_get_contents($url."/".$id."/music?access_token=".$token);
-			$json_decode = json_decode($info, true);
+			$json = json_decode($info, true);
 			$data = array();
 			
-			foreach($json_decode as $k){
-				$data[] = $k;
+			for($i=0;$i<sizeof($json['data']);$i++){
+				$data[$i]['name'] = $json['data'][$i]['name'];
+				$data[$i]['id'] = $json['data'][$i]['id'];
+				$data[$i]['category'] = $json['data'][$i]['category'];
+				$data[$i]['created_time'] = $json['data'][$i]['created_time'];
 			}
 			
 			return $data; //get results
 		}
+		
+		else {
+			return "bad request";
+		}
 	}
-	
 } //classend
 
 $facebookObj = new FacebookGraph('https://graph.facebook.com','AAAAAAITEghMBANUwJj2k1T5X48lGNZAm2vEb9aEW6CYsWV2koEZAruE8i2uBhTQ2JjZA1vdYbxUgve6uRKIUac21jgXhZBxDBNEasDtOVlEYBG3tNi5V'); //The URL
