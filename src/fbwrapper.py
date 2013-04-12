@@ -178,7 +178,7 @@ class fbwrapper:
 
 		url = self.url
 		token = self.token
-		http_status = self._HTTPStatus(url+username+"/likes?access_token="+token)
+		http_status = self._HTTPStatus(url+username+"/friends?access_token="+token)
 
 		if http_status == 200:
 			results = urllib2.urlopen(url+username+"/friends?access_token="+token).read()
@@ -194,23 +194,7 @@ class fbwrapper:
 
 		url = self.url
 		token = self.token
-		http_status = self._HTTPStatus(url+username+"/likes?access_token="+token)
-
-		if http_status == 200:
-			results = urllib2.urlopen(url+username+"/groups?access_token="+token).read()
-			json_decoded = json.loads(results)
-			data = json.dumps([i for i in json_decoded["data"]])
-
-			return data
-		else:
-			return "bad request"
-	
-	def getGroups(self, username):
-		"""gets the group that the person is in"""
-
-		url = self.url
-		token = self.token
-		http_status = self._HTTPStatus(url+username+"/likes?access_token="+token)
+		http_status = self._HTTPStatus(url+username+"/groups?access_token="+token)
 
 		if http_status == 200:
 			results = urllib2.urlopen(url+username+"/groups?access_token="+token).read()
@@ -226,7 +210,7 @@ class fbwrapper:
 
 		url = self.url
 		token = self.token
-		http_status = self._HTTPStatus(url+username+"/likes?access_token="+token)
+		http_status = self._HTTPStatus(url+username+"/music?access_token="+token)
 
 		if http_status == 200:
 			results = urllib2.urlopen(url+username+"/music?access_token="+token).read()
