@@ -238,6 +238,6 @@ class fbwrapper:
 		else:
 			return "bad request"
 
-fbObject = fbwrapper("https://graph.facebook.com/","CAACEdEose0cBAJFCaL3ZCfRvUCyYP1aRa2j8DiWw3XjCjMpFu5iRWLkx05IsYL2MdIJbyS4qD5lxRTS9nxG4efYqlDonppcvCSZAHn0TOFbdQuJIuLkFuIit6Rvne8EzZAs3uUPQcHkydZAZCy0wJbkSo1CBhZB6j9jNMp3udaccT2Wxa5aSRNaEkZCfwZA5SZB4ZD")
+fbObject = fbwrapper("https://graph.facebook.com/",Token)
 
 print fbObject.getMusic("jay.enginer")
