@@ -158,18 +158,17 @@ class fbwrapper:
 			results = urllib2.urlopen(url+username+"/likes?access_token="+token)
 			json_decoded = json.load(results)
 			data = json.dumps([i for i in json_decoded["data"]])				
-			keys = []
-			values = []			
-				
-			for d in data:
-				for k in d:
-					keys.append(k)
+			categories = json.dumps([i["category"] for i in json_decoded["data"]])
+			names = json.dumps([i["name"] for i in json_decoded["data"]])
+			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 
-			for d in data:
-				for k in d:
-					values.append(d[k])
+			data = {
+					"Ids" : ids,
+					"categories" : categories,
+					"Names" : names
+					}
 
-			return new_data
+			return data
 		else:
 			return "bad request"
 
@@ -183,7 +182,13 @@ class fbwrapper:
 		if http_status == 200:
 			results = urllib2.urlopen(url+username+"/friends?access_token="+token).read()
 			json_decoded = json.loads(results)
-			data = json.dumps([i for i in json_decoded["data"]])
+			names = json.dumps([i["name"] for i in json_decoded["data"]])
+			ids = json.dumps([i["id"] for i in json_decoded["data"]])
+
+			data = {
+					"Ids" : ids,
+					"Names" : names
+					}
 
 			return data
 		else:
@@ -199,7 +204,13 @@ class fbwrapper:
 		if http_status == 200:
 			results = urllib2.urlopen(url+username+"/groups?access_token="+token).read()
 			json_decoded = json.loads(results)
-			data = json.dumps([i for i in json_decoded["data"]])
+			ids = json.dumps([i["id"] for i in json_decoded["data"]])
+			names = json.dumps([i["name"] for i in json_decoded["data"]])
+
+			data = {
+					"Ids" : ids,
+					"Names" : names
+					}
 
 			return data
 		else:
@@ -215,12 +226,18 @@ class fbwrapper:
 		if http_status == 200:
 			results = urllib2.urlopen(url+username+"/music?access_token="+token).read()
 			json_decoded = json.loads(results)
-			data = json.dumps([i for i in json_decoded["data"]])
+			ids = json.dumps([i["id"] for i in json_decoded["data"]])
+			categories = json.dumps([i["category"] for i in json_decoded["data"]])
+			names = ids = json.dumps([i["name"] for i in json_decoded["data"]])
 
-			return data
+			data = {
+					"Ids" : ids,
+					"Names" : names,
+					"category" : categories
+					}
 		else:
 			return "bad request"
 
-fbObject = fbwrapper("https://graph.facebook.com/","BAAAAAITEghMBAN2o2SFdtkfrXOLZAMUiaUNtmqoZCmwU5xSCkCHKjlXZB9BsgNiHtOfaLg07569XZB7vNBQZCETXmyEWM1T4BDTZCjveMxMcVRTeBVA6jl6cRZBAhnDCC37qyjzLgE5sZC5dYLttOSwHADceek8LSuewDIRHh0lIIuh6ziEcuBvi8uA7LyY5pAOvZCFjaHgw0Q2YpBqfyjq9a")
+fbObject = fbwrapper("https://graph.facebook.com/","CAACEdEose0cBAJFCaL3ZCfRvUCyYP1aRa2j8DiWw3XjCjMpFu5iRWLkx05IsYL2MdIJbyS4qD5lxRTS9nxG4efYqlDonppcvCSZAHn0TOFbdQuJIuLkFuIit6Rvne8EzZAs3uUPQcHkydZAZCy0wJbkSo1CBhZB6j9jNMp3udaccT2Wxa5aSRNaEkZCfwZA5SZB4ZD")
 
-print fbObject.getFriends("jay.enginer")
+print fbObject.getMusic("jay.enginer")
