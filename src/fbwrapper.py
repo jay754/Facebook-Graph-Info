@@ -38,7 +38,7 @@ class fbwrapper:
 
 		return self.token
 
-	def _HTTPStatus(self, url):
+    def _HTTPStatus(self, url):
         """get the http status code of a site"""	
 
         r = requests.get(url)
@@ -46,7 +46,7 @@ class fbwrapper:
 
         return http_status
 
-	def fbInfo(self, username):
+    def fbInfo(self, username):
 		"""Gets the basic info for the person
 		   Returns a Dictionary of basic info of username"""
 
@@ -56,7 +56,7 @@ class fbwrapper:
 
         return json_decoded
 
-	def fbID(self, username):
+    def fbID(self, username):
 		"""Gets the fb id of the person"""
 
         results = self.fbInfo(username)
@@ -64,7 +64,7 @@ class fbwrapper:
 
         return Id
 	
-	def getName(self, username):
+    def getName(self, username):
 		"""Gets the First and Last Name of the person
 		   Returns a Tuple of lastname first and than firstname"""		
 
@@ -73,7 +73,7 @@ class fbwrapper:
 
         return Data
 
-	def getUsername(self, username):
+    def getUsername(self, username):
         """Gets the fb username of the person"""
 
         results = self.fbInfo(username)
@@ -81,7 +81,7 @@ class fbwrapper:
 
         return Data
 
-	def getLink(self, username):
+    def getLink(self, username):
         """Gets the fb link of the person"""
 
         results = self.fbInfo(username)
