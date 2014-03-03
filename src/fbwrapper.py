@@ -162,13 +162,12 @@ class fbwrapper:
 			names = json.dumps([i["name"] for i in json_decoded["data"]])
 			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 
-			data = {
-					"Ids" : ids,
-					"categories" : categories,
-					"Names" : names
-					}
+			data = { "Ids" : ids,
+					 "categories" : categories,
+					 "Names" : names }
 
 			return data
+		
 		else:
 			return "bad request"
 
@@ -185,12 +184,11 @@ class fbwrapper:
 			names = json.dumps([i["name"] for i in json_decoded["data"]])
 			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 
-			data = {
-					"Ids" : ids,
-					"Names" : names
-					}
+			data = { "Ids" : ids,
+					 "Names" : names }
 
 			return data
+		
 		else:
 			return "bad request"
 
@@ -207,12 +205,11 @@ class fbwrapper:
 			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 			names = json.dumps([i["name"] for i in json_decoded["data"]])
 
-			data = {
-					"Ids" : ids,
-					"Names" : names
-					}
+			data = { "Ids" : ids,
+					 "Names" : names }
 
 			return data
+		
 		else:
 			return "bad request"
 
@@ -230,11 +227,10 @@ class fbwrapper:
 			categories = json.dumps([i["category"] for i in json_decoded["data"]])
 			names = ids = json.dumps([i["name"] for i in json_decoded["data"]])
 
-			data = {
-					"Ids" : ids,
-					"Names" : names,
-					"category" : categories
-					}
+			data = { "Ids" : ids,
+					 "Names" : names,
+					 "category" : categories }
+		
 		else:
 			return "bad request"
 
