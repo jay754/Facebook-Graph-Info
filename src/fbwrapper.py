@@ -36,7 +36,7 @@ class fbwrapper:
     def __getToken(self):
         """returns token"""
 
-		return self.token
+        return self.token
 
     def _HTTPStatus(self, url):
         """get the http status code of a site"""	
@@ -97,7 +97,7 @@ class fbwrapper:
 
         return Data
 
-	def getPic(self, username):
+    def getPic(self, username):
         """Gets the picture of the person and saved on your computer
 
            -Saves the your facebook picture in the current directory and saved as jpg
