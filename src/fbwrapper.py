@@ -47,8 +47,8 @@ class fbwrapper:
         return http_status
 
     def fbInfo(self, username):
-		"""Gets the basic info for the person
-		   Returns a Dictionary of basic info of username"""
+        """Gets the basic info for the person
+           Returns a Dictionary of basic info of username"""
 
         url = self.url
         results = urllib2.urlopen(url+username)
@@ -57,7 +57,7 @@ class fbwrapper:
         return json_decoded
 
     def fbID(self, username):
-		"""Gets the fb id of the person"""
+        """Gets the fb id of the person"""
 
         results = self.fbInfo(username)
         Id = str(results["id"])
@@ -65,8 +65,8 @@ class fbwrapper:
         return Id
 	
     def getName(self, username):
-		"""Gets the First and Last Name of the person
-		   Returns a Tuple of lastname first and than firstname"""		
+        """Gets the First and Last Name of the person
+           Returns a Tuple of lastname first and than firstname"""		
 
         results = self.fbInfo(username)
         Data = (str(results["last_name"]), str(results["first_name"]))
