@@ -163,7 +163,7 @@ class fbwrapper:
 			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 
 			data = {"Ids" : ids,
-			        "categories" : categories,
+			       	"categories" : categories,
 			        "Names" : names}
 
 			return data
@@ -230,6 +230,8 @@ class fbwrapper:
 			data = {"Ids" : ids,
 			        "Names" : names,
 			        "category" : categories}
+
+			return data
 
 		else:
 			return "bad request"
