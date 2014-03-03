@@ -108,7 +108,7 @@ class fbwrapper:
 		#results = urllib2.urlopen(url+username+"/picture").read()
 		cwd = os.getcwd()		
 
-		try:			
+		try:
 			urllib.urlretrieve(url+username+"/picture", username+".jpg")
 			return "success, Your file is saved at " + cwd 
 		except:
@@ -125,10 +125,10 @@ class fbwrapper:
 				
 		data = {"Name" : str(json_decoded["name"]),
 		        "Id" : str(json_decoded["id"]),
-			    "Likes" : str(json_decoded["likes"]),
-			    "Website" : str(json_decoded["website"]),
-			    "People Talking about" : str(json_decoded["talking_about_count"]),
-			    "About" : str(json_decoded["about"])}
+		        "Likes" : str(json_decoded["likes"]),
+		        "Website" : str(json_decoded["website"]),
+		        "People Talking about" : str(json_decoded["talking_about_count"]),
+		        "About" : str(json_decoded["about"])}
 		
 		return data
 
@@ -141,9 +141,9 @@ class fbwrapper:
 		data = dict()
 
 		data = {"Name" : str(json_decoded["name"]),
-			    "weekly active users" : str(json_decoded["weekly_active_users"]),
-			    "monthly active users" : str(json_decoded["monthly_active_users"]),
-			    "daily active users rank" : str(json_decoded["daily_active_users_rank"])}
+		        "weekly active users" : str(json_decoded["weekly_active_users"]),
+		        "monthly active users" : str(json_decoded["monthly_active_users"]),
+		        "daily active users rank" : str(json_decoded["daily_active_users_rank"])}
 
 		return data
 
