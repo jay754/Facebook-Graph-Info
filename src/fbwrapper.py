@@ -112,7 +112,7 @@ class fbwrapper:
 		    urllib.urlretrieve(url+username+"/picture", username+".jpg")
 		    return "success, Your file is saved at " + cwd 
 		except:
-			raise DownloadError
+		    raise DownloadError
 
 	def getPageInfo(self, id):
 		"""gets the basic info of a facebook page
