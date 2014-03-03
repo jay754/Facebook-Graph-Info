@@ -30,7 +30,7 @@ class fbwrapper:
 
 	def __getURL(self):
 		"""returns Url"""
-		
+
 		return self.url
 	
 	def __getToken(self):
@@ -40,7 +40,7 @@ class fbwrapper:
 
 	def _HTTPStatus(self, url):
 		"""get the http status code of a site"""	
-		
+
 		r = requests.get(url)
 		http_status = r.status_code
     
@@ -58,7 +58,7 @@ class fbwrapper:
 
 	def fbID(self, username):
 		"""Gets the fb id of the person"""
-		
+
 		results = self.fbInfo(username)
 		Id = str(results["id"])
 
@@ -67,7 +67,7 @@ class fbwrapper:
 	def getName(self, username):
 		"""Gets the First and Last Name of the person
 		   Returns a Tuple of lastname first and than firstname"""		
-	
+
 		results = self.fbInfo(username)
 		Data = (str(results["last_name"]), str(results["first_name"]))
 
@@ -75,7 +75,7 @@ class fbwrapper:
 
 	def getUsername(self, username):
 		"""Gets the fb username of the person"""
-		
+
 		results = self.fbInfo(username)
 		Data = str(results["username"])
 
@@ -83,7 +83,7 @@ class fbwrapper:
 
 	def getLink(self, username):
 		"""Gets the fb link of the person"""
-		
+
 		results = self.fbInfo(username)
 		Data = str(results["link"])
 
@@ -91,7 +91,7 @@ class fbwrapper:
 
 	def getGender(self, username):
 		"""Gets the fb gender of the person"""
-		
+
 		results = self.fbInfo(username)
 		Data = str(results["gender"])
 
@@ -103,7 +103,7 @@ class fbwrapper:
 		   -Saves the your facebook picture in the current directory and saved as jpg
 		   -Just put the username of the person's picture you want 
 		   -Does not tell you if there's a duplicate saved"""
-		
+
 		url = self.url
 		#results = urllib2.urlopen(url+username+"/picture").read()
 		cwd = os.getcwd()		
@@ -124,11 +124,11 @@ class fbwrapper:
 		data = dict()		
 				
 		data = {"Name" : str(json_decoded["name"]),
-			"Id" : str(json_decoded["id"]),
-			"Likes" : str(json_decoded["likes"]),
-			"Website" : str(json_decoded["website"]),
-			"People Talking about" : str(json_decoded["talking_about_count"]),
-			"About" : str(json_decoded["about"])}
+		        "Id" : str(json_decoded["id"]),
+			    "Likes" : str(json_decoded["likes"]),
+			    "Website" : str(json_decoded["website"]),
+			    "People Talking about" : str(json_decoded["talking_about_count"]),
+			    "About" : str(json_decoded["about"])}
 		
 		return data
 
@@ -141,19 +141,19 @@ class fbwrapper:
 		data = dict()
 
 		data = {"Name" : str(json_decoded["name"]),
-			"weekly active users" : str(json_decoded["weekly_active_users"]),
-			"monthly active users" : str(json_decoded["monthly_active_users"]),
-			"daily active users rank" : str(json_decoded["daily_active_users_rank"])}
-		
+			    "weekly active users" : str(json_decoded["weekly_active_users"]),
+			    "monthly active users" : str(json_decoded["monthly_active_users"]),
+			    "daily active users rank" : str(json_decoded["daily_active_users_rank"])}
+
 		return data
 
 	def getLikes(self, username):
 		"""gets like of the original person"""
-		
+
 		url = self.url
 		token = self.token
 		http_status = self._HTTPStatus(url+username+"/likes?access_token="+token)		
-		
+
 		if http_status == 200:
 			results = urllib2.urlopen(url+username+"/likes?access_token="+token)
 			json_decoded = json.load(results)
@@ -162,12 +162,12 @@ class fbwrapper:
 			names = json.dumps([i["name"] for i in json_decoded["data"]])
 			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 
-			data = { "Ids" : ids,
-					 "categories" : categories,
-					 "Names" : names }
+			data = {"Ids" : ids,
+			        "categories" : categories,
+			        "Names" : names}
 
 			return data
-		
+
 		else:
 			return "bad request"
 
@@ -184,11 +184,11 @@ class fbwrapper:
 			names = json.dumps([i["name"] for i in json_decoded["data"]])
 			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 
-			data = { "Ids" : ids,
-					 "Names" : names }
+			data = {"Ids" : ids,
+			        "Names" : names}
 
 			return data
-		
+
 		else:
 			return "bad request"
 
@@ -205,11 +205,11 @@ class fbwrapper:
 			ids = json.dumps([i["id"] for i in json_decoded["data"]])
 			names = json.dumps([i["name"] for i in json_decoded["data"]])
 
-			data = { "Ids" : ids,
-					 "Names" : names }
+			data = {"Ids" : ids,
+			        "Names" : names }
 
 			return data
-		
+
 		else:
 			return "bad request"
 
@@ -227,13 +227,12 @@ class fbwrapper:
 			categories = json.dumps([i["category"] for i in json_decoded["data"]])
 			names = ids = json.dumps([i["name"] for i in json_decoded["data"]])
 
-			data = { "Ids" : ids,
-					 "Names" : names,
-					 "category" : categories }
-		
+			data = {"Ids" : ids,
+			        "Names" : names,
+			        "category" : categories}
+
 		else:
 			return "bad request"
 
 fbObject = fbwrapper("https://graph.facebook.com/",Token)
-
 print fbObject.getMusic("jay.enginer")
