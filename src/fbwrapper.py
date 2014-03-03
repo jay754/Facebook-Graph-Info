@@ -107,10 +107,10 @@ class fbwrapper:
 		url = self.url
 		#results = urllib2.urlopen(url+username+"/picture").read()
 		cwd = os.getcwd()		
-
+		
 		try:
-			urllib.urlretrieve(url+username+"/picture", username+".jpg")
-			return "success, Your file is saved at " + cwd 
+		    urllib.urlretrieve(url+username+"/picture", username+".jpg")
+		    return "success, Your file is saved at " + cwd 
 		except:
 			raise DownloadError
 
