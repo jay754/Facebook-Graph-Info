@@ -12,14 +12,14 @@
 
 class FacebookGraph {
 	// All the info you can get from facebook without oAuth
-	
-	private $_url; //facebook api url
-	private $_token; //access token
-	public $http_status; // http status 
+
+    private $_url; //facebook api url
+    private $_token; //access token
+    public $http_status; // http status 
 	
     public function __construct($url, $token = NULL){
-	    $this -> _url = $url; //url
-	    $this -> _token = $token; //access token
+        $this -> _url = $url; //url
+        $this -> _token = $token; //access token
     }
 	
 	/**
@@ -87,8 +87,8 @@ class FacebookGraph {
 	**/
 	
     public function getName($fb_username){
-		$info = $this -> fbInfo($fb_username);
-		$data = array("first_name" => $info['first_name'],
+        $info = $this -> fbInfo($fb_username);
+        $data = array("first_name" => $info['first_name'],
                       "last_name" => $info['last_name']);
         
         return $data;
@@ -170,8 +170,8 @@ class FacebookGraph {
         {
             if (empty($json["location"])){
                 throw new Exception('City is not Listed.');
-			}
-		}
+            }
+        }
         catch (Exception $e)
         {
             print $e->getMessage();
@@ -182,9 +182,8 @@ class FacebookGraph {
                       "website" => $json["website"],
                       "People Talking about" => $json["talking_about_count"],
                       "City" => $json["location"]["city"]);
-
             return $data;
-		}
+        }
     }
 	
 	/** 
@@ -195,10 +194,10 @@ class FacebookGraph {
 	**/
 	
     public function appInfo($appId){
-		$url = $this-> _url;
-		$info = file_get_contents($url.'/'.$appId);
-		$json = json_decode($info, true);
-		$data = array("name" => $json["name"],
+        $url = $this-> _url;
+        $info = file_get_contents($url.'/'.$appId);
+        $json = json_decode($info, true);
+        $data = array("name" => $json["name"],
                       "weekly active users" => $json["weekly_active_users"],
                       "monthly active users" => $json["monthly_active_users"],
                       "daily active users_rank" => $json["daily_active_users_rank"],
@@ -235,8 +234,7 @@ class FacebookGraph {
 
             return $data;
         }
-		
-		else {
+        else {
             return "bad request";
         }
     }
